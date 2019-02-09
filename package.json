@@ -2,10 +2,10 @@
   "name": "ahorcado",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/Belquira/ahorcado",
+  "homepage": "http://belquira.github.io/Juego-Ahorcado",
   "dependencies": {
     "bootstrap": "^4.2.1",
-    "jquery": "^1.9.1",
+    "jquery": "^1.12.4",
     "popper.js": "^1.14.6",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
