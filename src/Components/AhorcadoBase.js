@@ -59,15 +59,19 @@ class Ahorcado extends Component {
 
   //evento para detectar tecla enter al ser presionada
   onEnter = e => {
-    //al presionar enter
+    //al presionar enter ejectutar funcion
     if (e.charCode === 13 && this.palabraCompletada === false) {
-      //13 is the enter keycode
-      //ejecutar funcion
+      //13 es el codigo de la tecla
       this.handleClick();
     }
-    //prevenir ingreso de numeros
-    var keyCode = e.keyCode ? e.keyCode : e.which;
-    if (keyCode > 47 && keyCode < 58) {
+    //asignar codigo de la tecla ingresada.
+    var codigoTecla = e.keyCode ? e.keyCode : e.which; 
+    //patron para el ingreso de datos permitido con solo letras.
+    let patronPermitido = /[A-Za-z]/;
+    //convierte el codigo de la tecla ingresado en el caracter correspondiente.
+    let codigoTeclaString = String.fromCharCode(codigoTecla);
+    if (!patronPermitido.test(codigoTeclaString)){
+      //evita la escritura de datos no admitidos.
       e.preventDefault();
     }
   };
@@ -90,13 +94,19 @@ class Ahorcado extends Component {
       let palabraMedio = palabraAdivinar.substr(1, palabraAdivinar.length - 2);
       //se evalua si la letra ingresada por el usuario no coincide con las letras ocultas.
       if (!palabraMedio.includes(letraInput.toLowerCase())) {
-        //se actualiza en el estado el numero de intentos fallidos y un false para indicar fallo del jugador.
-        //se le restan 50 puntos al jugador por cada fallo
+        //restar los puntos solo si el score es mayor a 0
+        if(this.state.score > 0){
+          this.setState(prevState => ({
+            mostrarMensaje: "error",
+            intentosFallidos: prevState.intentosFallidos - 1,
+            score: prevState.score - 25
+        }));
+      } else {
         this.setState(prevState => ({
           mostrarMensaje: "error",
-          intentosFallidos: prevState.intentosFallidos - 1,
-          score: prevState.score - 50
+          intentosFallidos: prevState.intentosFallidos - 1
         }));
+      }
      
       } else {  //la letra corresponde con la palabra.
         //Para comparar si se repiten letras ingresadas.
@@ -129,7 +139,7 @@ class Ahorcado extends Component {
             //y se establece la palabra completada como true para desactivar el botón de comparacion.
             this.setState(prevState => ({
               mostrarMensaje: "completado",
-              score: prevState.score + 100
+              score: prevState.score + 75
             }));
             this.palabraCompletada = true;
           }
@@ -183,14 +193,12 @@ class Ahorcado extends Component {
                   <h5 className="card-title">{this.state.palabraOculta}</h5>
                   <h6>Puntaje: {this.state.score}</h6>
                   <div className="form-inline justify-content-center">
-                    <label className="card-text">
-                    Palabra: 
-                    </label>
                     <input
                       type="text"
                       id="pal"
                       className="form-control"
                       maxLength="1"
+                      placeholder="Escribe una letra aquí"
                       onKeyPress={this.onEnter} />
                   </div>
                   <div>
