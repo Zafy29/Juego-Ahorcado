@@ -16,12 +16,17 @@ const Ahorcado_Results = (props) => {
               <h4 className="card-title mt-2"> ¡Felicidades!</h4>
               <h5>Tu puntaje final: {props.score}</h5>
               <div className="form-inline justify-content-center">
-                <p>
-                  ¡Gracias por jugar!
-                  Cualquier comentario puedes hacermelo saber
-                  por mensaje privado en Github :)
-                </p>
-                <strong>Atentamente, Anabel Paz</strong>
+                <div>
+                  <p>
+                    Lo lograste. 
+                    Haz completado el juego, supongo que
+                    no tenias nada mejor que hacer.
+                    Asi que... ¡Gracias por jugar!
+                  </p>
+                  <b>
+                    Creado por: Anabel Paz
+                  </b>
+                </div>
               </div>
             </div>
           </div>
